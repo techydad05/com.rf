@@ -17,6 +17,9 @@
 </svelte:head>
 
 <section>
+	{#each $productStore as product}
+		<img src={product.thumbnail} width="400px" alt={""} />
+	{/each}
 	<h1>
 		<div class="welcome">
 			<picture>
