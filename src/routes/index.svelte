@@ -3,7 +3,7 @@
 </script>
 
 <script lang="ts">
-    import { getProducts, productStore, createCart, getCart } from "../stores/productStore";
+    import { getProducts, productStore } from "../stores/productStore";
 </script>
 
 <svelte:head>
@@ -14,8 +14,8 @@
 	{#await getProducts()}
 		<h1 class="text-2xl font-light">Loading...</h1>
 	{:then data}
-	<button on:click={() => createCart()} class="btn btn-primary mb-2">create cart</button>
-	<button on:click={() => getCart()} class="btn btn-primary mb-2">get cart</button>
+	<!-- <button on:click={() => createCart()} class="btn btn-primary mb-2">create cart</button>
+	<button on:click={() => getCart()} class="btn btn-primary mb-2">get cart</button> -->
 	
 	<div class="bg-slate-600">
 		{#each $productStore as product}
