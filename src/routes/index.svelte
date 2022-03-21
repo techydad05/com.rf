@@ -3,23 +3,26 @@
 </script>
 
 <script lang="ts">
-	import Counter from '$lib/Counter.svelte';
-
-    import { getProducts, productStore } from "../stores/productStore";
-    getProducts();
+    import { getProducts, productStore, createCart } from "../stores/productStore";
 </script>
-<!-- {#each $productStore as product}
-    <img src={product.thumbnail} width="400px" alt={""} />
-{/each} -->
 
 <svelte:head>
 	<title>Home</title>
 </svelte:head>
 
 <section>
-	{#each $productStore as product}
-		<img src={product.thumbnail} width="400px" alt={""} />
-	{/each}
+	{#await getProducts()}
+		<h1 class="text-2xl font-light">Loading...</h1>
+	{:then data}
+	<button on:click={() => createCart()} class="btn btn-primary mb-2">Button</button>
+		<div class="bg-slate-600">
+			{#each $productStore as product}
+				<img class="p-4 float-left w-1/3" src={product.thumbnail} width="400px" alt={""} />
+			{/each}
+		</div>
+	{:catch error}
+		{() => console.log(error)}
+	{/await}
 	<h1>
 		<div class="welcome">
 			<picture>
@@ -27,15 +30,7 @@
 				<img src="svelte-welcome.png" alt="Welcome" />
 			</picture>
 		</div>
-
-		to your new<br />SvelteKit app
 	</h1>
-
-	<h2>
-		try editing <strong>src/routes/index.svelte</strong>
-	</h2>
-
-	<Counter />
 </section>
 
 <style>
